@@ -1,0 +1,151 @@
+{% load static %} <!-- Carga la librería de static para poder acceder a archivos estáticos -->
+
+<!DOCTYPE html> 
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" /> <!-- Setea el charset a UTF-8 -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Setea el viewport para responsive design -->
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" /> <!-- Link a CSS de Bootstrap -->
+
+  <link rel="stylesheet" href="{% static 'css/estilo.css' %}" /> <!-- Link al CSS custom -->
+
+  <title>Document</title> <!-- Título de la página -->
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-dark">
+
+    <div class="container-fluid">
+    
+      <a class="navbar-brand text-light" href="#"><img src=".././static/img/im.png" alt="" /></a> <!-- Logo y link a home -->
+      
+      <button class="navbar-toggler bg-dark-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" 
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> <!-- Botón para collapsed menu mobile -->
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+        <ul class="navbar-nav">
+        
+          <li class="nav-item">
+          
+            <a class="nav-link active text-light" aria-current="page" href="#">INICIO</a>
+            
+          </li>
+          
+        </ul>
+        
+      </div>
+      
+    </div>
+    
+  </nav>
+
+  <div class="container">
+
+    <br />
+    
+    <div class="card">
+    
+      <h5 class="card-header display-4 text-lg-center">NFL</h5> <!-- Título NFL -->
+       
+      <div class="card-body">
+       
+       <a href="/crear/" class="btn btn-primary"> Crear </a> <!-- Link editar -->
+       <br />
+       
+
+      
+        
+      </div>
+      
+    </div>
+
+    <br />
+    {% block content %}
+    <div class="card">
+    
+      <table class="table">
+      
+        <thead>
+        
+          <tr>
+          
+            <th>#</th> <!-- Número -->
+            
+            <th>Ciudad</th> <!-- Columna Ciudad -->
+            
+            <th>Equipo</th> <!-- Columna Equipo -->
+            
+            <th>Estadio</th> <!-- Columna Estadio -->
+            
+            <th></th> <!-- Columna vacia -->
+            
+          </tr>
+          
+        </thead>
+
+        <tbody>
+        
+          {% for ciudad in ciudades %} <!-- Loop through ciudades -->
+          
+          <tr>
+          
+            <td>{{ ciudad.id }}</td> <!-- Id de ciudad -->
+            
+            <td>{{ ciudad.nombre }}</td> <!-- Nombre de ciudad -->
+            
+            {% for equipo in equipos %} <!-- Loop through equipos -->
+            
+              {% if equipo.ciudad == ciudad %} <!-- Si equipo pertenece a ciudad -->
+              
+                <td>{{ equipo.nombre }}</td> <!-- Nombre de equipo -->
+                
+                {% for estadio in estadios %} <!-- Loop through estadios -->
+                
+                  {% if estadio.equipo == equipo %} <!-- Si estadio pertenece al equipo -->
+                  
+                    <td>{{ estadio.nombre }}</td> <!-- Nombre de estadio -->
+                    
+                    <td>
+                    
+                      <a href="editar/{{ciudad.id}}" class="btn btn-secondary">Editar </a> <!-- Link editar -->
+                      
+                      <a href="eliminar/{{ciudad.id}}" class="btn btn-danger">Borrar</a> <!-- Link borrar -->
+                      
+                    </td>
+                    
+                  {% endif %}
+                  
+                {% endfor %}
+                
+              {% endif %}
+              
+            {% endfor %}
+            
+          </tr>
+          
+          {% endfor %}
+          
+        </tbody>
+        
+      </table>
+      
+    </div>
+    {% endblock %}
+   
+
+  </div>
+
+  <script src="{% static 'js/bootstrap.min.js' %}"></script> <!-- Bootstrap JS -->
+
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2>Detalles de la Subcategoría</h2>
+  <dl class="row">
+    <dt class="col-sm-3">ID:</dt>
+    <dd class="col-sm-9">{{ subcategoria.id }}</dd>
+    <dt class="col-sm-3">Nombre:</dt>
+    <dd class="col-sm-9">{{ subcategoria.nombre }}</dd>
+    <dt class="col-sm-3">Categoría:</dt>
+    <dd class="col-sm-9">{{ subcategoria.categoria.nombre }}</dd>
+  </dl>
+  <a href="{% url 'subcategoria_list' %}" class="btn btn-secondary">Volver al Listado</a>
+</div>
+{% endblock %}

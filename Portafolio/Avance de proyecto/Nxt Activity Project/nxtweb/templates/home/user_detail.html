@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h1>{{ users.username }}</h1>
+  <p>Edad: {{ users.age }}</p>
+  <p>Estado: {% if users.status %}Activo{% else %}Inactivo{% endif %}</p>
+  <p>Descripción: {{ users.description }}</p>
+  <p>Email: {{ users.email }}</p>
+  {% if users.pfp %}
+    <img src="{{ users.pfp.url }}" alt="Perfil" class="img-fluid mb-3">
+  {% endif %}
+  <a class="btn btn-secondary" href="{% url 'user_edit' pk=users.pk %}">Editar</a>
+  <a class="btn btn-primary" href="{% url 'user_list' %}">Volver a la lista de usuarios</a>
+</div>
+{% endblock %}
